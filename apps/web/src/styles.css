@@ -1,0 +1,317 @@
+:root {
+  color-scheme: dark;
+  --bg: #141412;
+  --ink: #e8e2d6;
+  --muted: #8e877c;
+  --dim: #5c574f;
+  --bad: #d4654f;
+  --caret: #e0b15e;
+  --line: #2c2a26;
+  --fill: #e8e2d6;
+  --fill-ink: #141412;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { min-height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size: 16px;
+}
+
+main {
+  width: min(42rem, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 14vh 0 4rem;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  column-gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.chapters { display: flex; gap: 0.9rem; }
+
+.chapter {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.chapter.here {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.mark {
+  margin: 0;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--caret);
+  outline-offset: 3px;
+}
+
+.layout {
+  color: var(--ink);
+  justify-self: end;
+}
+
+.stage { outline: none; }
+
+.drill, .link, .hint, .note, .sub, .coach {
+  color: var(--muted);
+}
+
+.drill, .link {
+  margin: 0 0 1rem;
+}
+
+.link { display: inline-block; text-decoration: underline; text-underline-offset: 0.2em; }
+
+.words {
+  font-size: 1.7rem;
+  line-height: 1.65;
+  min-height: 7rem;
+  cursor: text;
+}
+
+/* A margin is not a line-break. Each word has to be its own box, or the
+   passage is one unbreakable run and the page scrolls sideways. */
+.word {
+  display: inline-block;
+  margin-right: 0.55em;
+}
+
+.word, .rest { color: var(--dim); }
+
+.word.done, .ok { color: var(--ink); }
+
+.bad { color: var(--bad); }
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.15em;
+  margin: 0 1px -0.15em 0;
+  background: var(--caret);
+  vertical-align: text-bottom;
+  animation: blink 1.05s steps(1) infinite;
+}
+
+.stage:not(.focused) .caret { animation: none; opacity: 0.35; }
+
+.hint { margin: 2rem 0 0; font-size: 0.85rem; }
+
+.score {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--muted);
+}
+
+.num {
+  font-size: 4.5rem;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.sub { margin: 0.8rem 0 0; }
+
+.coach {
+  margin: 1.6rem 0 0;
+  max-width: 36rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.note { margin: 0.7rem 0 0; font-size: 0.85rem; }
+
+.review {
+  margin-top: 1.8rem;
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.review .word { color: var(--dim); }
+
+.habits, .earlier { margin-top: 1.5rem; }
+
+.progress h2 {
+  margin: 2.2rem 0 0;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.progress h2:first-child { margin-top: 0; }
+
+.progress .coach { margin-top: 0.7rem; }
+
+.streak .coach { margin-top: 0; }
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.day {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.day.on { background: var(--ink); }
+
+.day.today { box-shadow: 0 0 0 1px var(--caret); }
+
+.day.today.on { background: var(--caret); }
+
+.progress .actions { margin-top: 1.1rem; }
+
+.jump { margin-top: 1.6rem; }
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.7rem;
+}
+
+.chart .baseline { stroke: var(--line); stroke-width: 1; }
+
+.chart .area { fill: var(--ink); opacity: 0.07; }
+
+.chart .line { fill: none; stroke: var(--ink); stroke-width: 1.75; stroke-linejoin: round; stroke-linecap: round; }
+
+.chart .dot { fill: var(--muted); }
+
+.chart .dot.last { fill: var(--caret); }
+
+.chart text {
+  fill: var(--muted);
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.fingers { margin-top: 0.3rem; }
+
+.finger {
+  display: grid;
+  grid-template-columns: 6.8rem minmax(0, 1fr) 4.6rem;
+  gap: 0.55rem;
+  align-items: center;
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.finger.hot { color: var(--ink); }
+
+.track {
+  display: block;
+  height: 0.4rem;
+  background: var(--line);
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  background: var(--muted);
+}
+
+.finger.hot .bar { background: var(--caret); }
+
+.finger span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+.runs { margin-top: 0.2rem; }
+
+.run {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0 0;
+  text-align: left;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.run.open {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.progress .review { margin-top: 0.7rem; }
+
+.habit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: baseline;
+  margin-top: 0.7rem;
+}
+
+.habit .note,
+.habit .link { margin: 0; }
+
+.earlier .link { display: block; margin: 0.35rem 0 0; }
+
+.actions { display: flex; gap: 0.6rem; margin-top: 1.8rem; }
+
+.actions button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+}
+
+.actions button.primary {
+  background: var(--fill);
+  color: var(--fill-ink);
+  border-color: transparent;
+}
+
+@media (max-width: 640px) {
+  main { padding-top: 8vh; }
+  .words { font-size: 1.25rem; }
+  .num { font-size: 3.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+

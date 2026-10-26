@@ -1,0 +1,20 @@
+{
+  "name": "type-dojc",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"tsx watch apps/server/src/index.ts\" \"pnpm --filter @dojc/web dev\"",
+    "build": "pnpm --filter @dojc/web build",
+    "start": "tsx apps/server/src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p packages/core && tsc -p apps/server && tsc -p apps/web",
+    "rebuild": "tsx apps/server/src/rebuild.ts"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
